@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
 	<title>URL Shortner</title>
-	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script src= "index.js"></script>
+	<script src="jquery.js"></script>
 </head>
 <body>
 	<div class = "content">
-		<form>
+		<form id = "urlForm" action="" onsubmit="return false">
 		  <label for="input_url">URL:</label>
-		  <input type="text" id="input_url" name="input_url"><br><br>
-		  <button type='button' onclick = "shortURL.value = URLshortener(input_url.value)">submit</button> 
-		  <output name = "shortURL" for = "input_url"></output>
+		  <input type="text" id="input_url" value = "Enter URL">
 		</form>
+		<button type="button" id ="submitButton">Submit</button>
+		
 
 	</div>
+	<script src="index.js"></script>
 </body>
 </html>
