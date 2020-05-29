@@ -2,19 +2,21 @@ var http = require('http')
 var express = require('express')
 var bodyParser = require('body-parser')
 var PORT = process.env.PORT || 5000
-const { Client } = require('pg')
 const db = require('./models/index.js');
 const urlShortener = require('node-url-shortener');
 
-connectionString = {
-	connectionString: process.env.DATABASE_URL,
-	ssl: true
-};
+const { Pool } = require('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 var path = require('path')
 var url = require('url')
 var app = express()
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/Public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
