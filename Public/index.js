@@ -8,7 +8,6 @@ function shortenURL()
     formURL = $("#input_url").val();
     console.log(`Form URL: ${formURL}`);
     var formData = JSON.stringify({"url_" : formURL});
-	//if (urlExists(formURL)) {
     if (urlExists(formURL)) {
         $.ajax({
             url:'/submit',
@@ -33,11 +32,12 @@ function shortenURL()
 
 
 function urlExists(url_) {
+    console.log("Checking if website exists");
     var http = $.ajax({
         type:"HEAD",
         url: url_,
         async: false
-    })
+    });
     if (http.status == 200) {
         return true;
     }
