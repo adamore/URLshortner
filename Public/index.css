@@ -1,6 +1,6 @@
 html {
   height: 100%;
-  background: radial-gradient(ellipse at top, #5091DD 0%, #030617 200%);
+  background: radial-gradient(ellipse at top, #8ab3e3 0%, #030617 250%);
 }
 
 .content {
@@ -13,10 +13,6 @@ html {
 
 #input_url {
   width: 100%;
-}
-
-#small_url {
-
 }
 
 
