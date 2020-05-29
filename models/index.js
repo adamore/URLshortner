@@ -9,9 +9,9 @@ const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
 let sequelize;
-if (config.use_env_variable) {
+if (process.env.HEROKU_POSTGRESQL_BRONZE_URL) {
   console.log("Using db");
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, config);
 } else {
   console.log("Using differnt db");
   sequelize = new Sequelize(config.database, config.username, config.password, config);
