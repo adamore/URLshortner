@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Smaller URL</title>
+	<script src="jquery.js"></script>
+	<link rel = "stylesheet" href = "index.css">
+</head>
+<h1> URL Shotener </h1>
+<body>
+	<div class = "content">
+		<form id = "urlForm" action="" onsubmit="return false">
+		  <label for="input_url">Enter URL:</label>
+		  <input type="text" id="input_url" >
+		</form>
+		<button type="button" id ="submitButton" title = "Shorten a url.">Shorten URL</button>
+		<button type="button" id ="checkShort" title = "Check where a shortened url goes.">Check short URL</button>
+		<div>
+			<div id="buttonCopyDiv" style = "display: none">
+				<button id="copyURL">Copy</button>
+				<a id = "small_url"></a>
+			</div>
+			<div id = "WebsiteDoesNotExist" style = "display: none">
+				<p>Website does not exist</p>
+			</div>
+		</div>
+	</div>
+	<script src="index.js"></script>
+</body>
+</html>

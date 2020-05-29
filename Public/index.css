@@ -1,0 +1,26 @@
+html {
+  height: 100%;
+  background: radial-gradient(ellipse at top, #5091DD 0%, #030617 200%);
+}
+
+.content {
+  display: flexbox;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#input_url {
+  width: 100%;
+}
+
+#small_url {
+
+}
+
+
+h1 {
+  text-align: center;
+}
+
