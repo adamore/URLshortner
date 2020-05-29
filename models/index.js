@@ -10,13 +10,7 @@ const db = {};
 
 let sequelize;
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_COPPER_URL, {
-      dialect:  'postgres',
-      protocol: 'postgres',
-      port:     match[4],
-      host:     match[3],
-      logging:  true //false
-    });
+  sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
