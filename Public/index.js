@@ -9,7 +9,7 @@ function shortenURL()
     console.log(`Form URL: ${formURL}`);
     var formData = JSON.stringify({"url_" : formURL});
 	//if (urlExists(formURL)) {
-    if (true) {
+    if (urlExists(formURL)) {
         $.ajax({
             url:'/submit',
             type:'POST',
