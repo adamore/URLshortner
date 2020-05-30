@@ -29,7 +29,9 @@ app.get('/', (req, res) => {
 
 app.get('', (req, res) => {
 	var adr_ = req.path;
+	console.log(`Short url ( ${adr_} ) used.`);
 	var longUrl = getLongUrl(adr_);
+	console.log(`Redirecting to ${longUrl}`);
 	res.redirect(longUrl);
 });
 
