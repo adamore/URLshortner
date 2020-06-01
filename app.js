@@ -27,37 +27,48 @@ app.get('/', (req, res) => {
 	res.render(path.join(__dirname + '/index.html'))
 });
 
-app.get('', (req, res) => {
-	var adr_ = req.path;
+app.get('*', (req, res) => {
+	var adr_ = req.path.substring(1);
 	console.log(`Short url ( ${adr_} ) used.`);
-	var longUrl = getLongUrl(adr_);
-	console.log(`Redirecting to ${longUrl}`);
-	res.redirect(longUrl);
+	console.log(`Getting long url for ${adr_}`);
+	db.Url.findOne({where: {shortUrl: adr_}}).then( longURL => {
+		if (!longURL) {
+			console.log("Error in finding url");
+			return window.location.origin;
+		}
+		else if (longURL) {
+			console.log("Found long url");
+			var query_val = longURL.toJSON().url;
+			console.log(query_val);
+			console.log(`Redirecting to ${query_val}`)
+			res.redirect(query_val);
+		}
+	});
 });
 
 app.post('/submit/', (req, res) => {
 	console.log("POST received");
 	const url = req.body.url_;
 	console.log(url);
-	urlShortener.short(url, (err, shortUrl) => {
-		db.Url.findOrCreate({where: {url : url, shortUrl: shortUrl}}).then(([urlObj, created]) => {
-			console.log(`Sending back ${shortUrl} as url.`)
-			res.send(shortUrl);
-		});
+	var hashedURL = hashURL(url);
+	db.Url.findOrCreate({where: {url : url, shortUrl: hashedURL}}).then(([urlObj, created]) => {
+		console.log(`Sending back ${hashedURL} as url.`)
+		res.send(hashedURL);
 	});
+
 });
 
 app.get('/check/', (req, res) => {
 	console.log("Checking shortened url.");
 	const url_ = req.query.url_;
-	db.Url.find({where: {shortUrl: url_}}), (err, shortUrl_) => {
+	db.Url.find({where: {shortUrl: url_}}).then(([err, shortUrl_]) => {
 		if (err) {
 			return res.status(404).json({ err: "Url does not exist."});
 		}
 		else if (shortUrl_) {
 			res.send(shortUrl_)
-		}
-	}
+		};
+	});
 });
 
 
@@ -67,15 +78,42 @@ app.listen(PORT, () => console.log(`Server started on ${PORT}`))
 
 function getLongUrl(path_)
 {
-	db.Url.find({where: {shortUrl: path_}}), (err, shortUrl_) => {
-		if (err) {
+	console.log(`Getting long url for ${path_}`);
+	var data = db.Url.findOne({where: {shortUrl: path_}}).then( longURL => {
+		if (!longURL) {
+			console.log("Error in finding url");
 			return window.location.origin;
 		}
-		else if (shortUrl_) {
-			return shortUrl_;
+		else if (longURL) {
+			console.log("Found long url");
+			console.log(longURL.toJSON());
+			var query_val = longURL.toJSON().url;
+			console.log(query_val);
+			return query_val;
 		}
-	}
+	});
+ 	console.log("Returning url");
+	return data;
 };
+
+function decimalToHexString(number)
+{
+  if (number < 0)
+  {
+    number = 0xFFFFFFFF + number + 1;
+  }
+
+  return number.toString(16).toUpperCase();
+};
+
+function hashURL(url_) {
+	hashCode = function(s){
+  		return s.split("").reduce(function(a,b){a=((a<<5)-a)+b.charCodeAt(0);return a&a},0);              
+	};
+	var hashed = decimalToHexString(hashCode(url_));
+	return hashed;
+}
+
 
 function createURL(path_)
 {

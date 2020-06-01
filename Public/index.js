@@ -5,6 +5,7 @@ document.getElementById("copyURL").addEventListener("click", copyShortUrl, false
 
 function shortenURL()
 {
+    var currentURL = window.location.href;
     formURL = $("#input_url").val();
     console.log(`Form URL: ${formURL}`);
     var formData = JSON.stringify({"url_" : formURL});
@@ -16,7 +17,7 @@ function shortenURL()
             data: {"url_": formURL},
             success : function(response){
                 document.getElementById('buttonCopyDiv').style.display = 'block';
-                document.getElementById('small_url').innerHTML = response;
+                document.getElementById('small_url').innerHTML = currentURL + response;
             },
             error : function(jqXhr, textStatus, errorMessage) {
             	window.alert("Error in shortening url.");
@@ -28,7 +29,6 @@ function shortenURL()
     }
     return;
 }
-
 
 
 function urlExists(url_) {
