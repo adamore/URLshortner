@@ -58,6 +58,9 @@ function urlExists(url_) {
 }
 
 function formatURL(adr_) {
+    if (adr_.substr(adr_.length, 4) != ".com") {
+        return adr_;
+    }
     if (adr_.substring(0, 4) != "http" && adr_.substring(0, 3) != "www") {
         var formated = "http://www." + adr_;
         return formated;
