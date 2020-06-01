@@ -27,25 +27,6 @@ app.get('/', (req, res) => {
 	res.render(path.join(__dirname + '/index.html'))
 });
 
-app.get('*', (req, res) => {
-	var adr_ = req.path.substring(1);
-	console.log(`Short url ( ${adr_} ) used.`);
-	console.log(`Getting long url for ${adr_}`);
-	db.Url.findOne({where: {shortUrl: adr_}}).then( longURL => {
-		if (!longURL) {
-			console.log("Error in finding url");
-			return window.location.origin;
-		}
-		else if (longURL) {
-			console.log("Found long url");
-			var query_val = longURL.toJSON().url;
-			console.log(query_val);
-			console.log(`Redirecting to ${query_val}`)
-			res.redirect(query_val);
-		}
-	});
-});
-
 app.post('/submit/', (req, res) => {
 	console.log("POST received");
 	const url = req.body.url_;
@@ -71,30 +52,29 @@ app.get('/check/', (req, res) => {
 	});
 });
 
-
-app.listen(PORT, () => console.log(`Server started on ${PORT}`))
-
-
-
-function getLongUrl(path_)
-{
-	console.log(`Getting long url for ${path_}`);
-	var data = db.Url.findOne({where: {shortUrl: path_}}).then( longURL => {
+app.get('*', (req, res) => {
+	var adr_ = req.path.substring(1);
+	console.log(`Short url ( ${adr_} ) used.`);
+	console.log(`Getting long url for ${adr_}`);
+	db.Url.findOne({where: {shortUrl: adr_}}).then( longURL => {
 		if (!longURL) {
 			console.log("Error in finding url");
 			return window.location.origin;
 		}
 		else if (longURL) {
 			console.log("Found long url");
-			console.log(longURL.toJSON());
 			var query_val = longURL.toJSON().url;
 			console.log(query_val);
-			return query_val;
+			console.log(`Redirecting to ${query_val}`)
+			res.redirect(query_val);
 		}
 	});
- 	console.log("Returning url");
-	return data;
-};
+});
+
+
+
+app.listen(PORT, () => console.log(`Server started on ${PORT}`))
+
 
 function decimalToHexString(number)
 {
@@ -112,12 +92,6 @@ function hashURL(url_) {
 	};
 	var hashed = decimalToHexString(hashCode(url_));
 	return hashed;
-}
-
-
-function createURL(path_)
-{
-
 }
 
 function setDataBaseURL(ext_, path_)

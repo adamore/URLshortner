@@ -4,15 +4,31 @@ html {
 }
 
 .content {
+  height: 40%;
+  width: 30%;
   display: flexbox;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+#submitButton {
+  width: 30%;
+}
 
+#checkShort {
+  width: 30%;
+}
 #input_url {
   width: 100%;
+}
+
+#copyURL {
+  width: 30%;
+}
+#shotenedDiv {
+  height: 30%;
+  width: 50%;
 }
 
 

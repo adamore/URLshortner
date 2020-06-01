@@ -6,10 +6,11 @@ document.getElementById("copyURL").addEventListener("click", copyShortUrl, false
 function shortenURL()
 {
     var currentURL = window.location.href;
-    formURL = $("#input_url").val();
+    var formURL = $("#input_url").val();
     console.log(`Form URL: ${formURL}`);
-    var formData = JSON.stringify({"url_" : formURL});
-    if (urlExists(formURL)) {
+    var formatedURL = formatURL(formURL);
+    console.log(`Formated url ${formatedURL}`);
+    if (urlExists(formatedURL)) {
         $.ajax({
             url:'/submit',
             type:'POST',
@@ -33,19 +34,39 @@ function shortenURL()
 
 function urlExists(url_) {
     console.log("Checking if website exists");
-    var http = $.ajax({
-        type:"HEAD",
-        url: url_,
-        async: false
-    });
-    if (http.status == 200) {
-        return true;
+    var request = false;
+    if (window.XMLHttpRequest) {
+            request = new XMLHttpRequest;
+    } else if (window.ActiveXObject) {
+            request = new ActiveXObject("Microsoft.XMLHttp");
     }
-    else {
-        return true;
-    };
+    if (request) {
+            console.log("Checking website.");
+            request.open("GET", url_);
+            request.send();
+            if (request.status == 200) { return true; }
+            else if (request.status == 404) {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+    }
+    return false;
 }
 
+function formatURL(adr_) {
+    if (adr_.substring(0, 4) != "http" && adr_.substring(0, 3) != "www") {
+        var formated = "www." + adr_;
+        return formated;
+    }
+    else if (adr_.substring(0, 4) == "http" || adr_.substring(0, 3) == "www") {
+        return adr_;
+    }
+    return adr_;
+}
 function checkURL() {
     formURL = $("#input_url").val();
     console.log(`Form URL: ${formURL}`);
