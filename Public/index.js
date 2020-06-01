@@ -59,18 +59,22 @@ function urlExists(url_) {
 
 function formatURL(adr_) {
     if (adr_.substr(adr_.length, 4) != ".com") {
+        console.log("Not a real url");
         return adr_;
     }
     if (adr_.substring(0, 4) != "http" && adr_.substring(0, 3) != "www") {
         var formated = "http://www." + adr_;
+        console.log(`Reformated url to ${formated}`);
         return formated;
     }
     else if (adr_.substring(0, 3) == "www")
     {
+        console.log(`Reformated url to ${formated}`);
         var formated = "http://" + adr_;
         return formated;
     }
     else if (adr_.substring(0, 4) == "http" || adr_.substring(0, 3) == "www") {
+        console.log(`Url already formated properly ${adr_}`);
         return adr_;
     }
     return adr_;
