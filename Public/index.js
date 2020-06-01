@@ -15,7 +15,7 @@ function shortenURL()
             url:'/submit',
             type:'POST',
             async: false,
-            data: {"url_": formURL},
+            data: {"url_": formatedURL},
             success : function(response){
                 document.getElementById('buttonCopyDiv').style.display = 'block';
                 document.getElementById('small_url').innerHTML = currentURL + response;
