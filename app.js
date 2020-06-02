@@ -42,6 +42,7 @@ app.post('/submit/', (req, res) => {
 app.get('/check/', (req, res) => {
     console.log("Checking shortened url.");
     const url_ = req.query.url_.substring(req.query.url_.lastIndexOf("/"), req.query.url_.length);
+    console.log(`Searching for url with hash ${url_}`);
     db.Url.findOne({ where: { shortUrl: url_ } }).then(longURL => {
         if (!longURL) {
             console.log("Error in finding long url.");
