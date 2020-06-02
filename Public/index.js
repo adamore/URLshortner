@@ -1,7 +1,12 @@
 document.getElementById("submitButton").addEventListener("click", shortenURL, false);
 document.getElementById("checkShort").addEventListener("click", checkURL, false);
 document.getElementById("copyURL").addEventListener("click", copyShortUrl, false);
-
+document.getElementById("input_url").addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("submitButton").click();
+    }
+});
 
 function shortenURL() {
     if (document.getElementById('WebsiteDoesNotExist').style.display == "block") {
@@ -102,5 +107,5 @@ function copyShortUrl() {
 
 
 $(document).ready(function() {
-
+    document.getElementById("input_url").autofocus;
 });
