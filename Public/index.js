@@ -4,6 +4,9 @@ document.getElementById("copyURL").addEventListener("click", copyShortUrl, false
 
 
 function shortenURL() {
+    if (document.getElementById('WebsiteDoesNotExist').style.display == "block") {
+        document.getElementById('WebsiteDoesNotExist').style.display = "none";
+    }
     var currentURL = window.location.href;
     var formURL = $("#input_url").val();
     console.log(`Form URL: ${formURL}`);
@@ -67,6 +70,9 @@ function formatURL(adr_) {
 }
 
 function checkURL() {
+    if (document.getElementById('WebsiteDoesNotExist').style.display == "block") {
+        document.getElementById('WebsiteDoesNotExist').style.display = "none";
+    }
     formURL = $("#input_url").val();
     console.log(`Form URL: ${formURL}`);
     var formData = JSON.stringify({ "url_": formURL });
