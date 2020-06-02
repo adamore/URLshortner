@@ -1,9 +1,15 @@
 html {
   height: 100%;
-  background: radial-gradient(ellipse at top, #8ab3e3 0%, #030617 200%);
+  background-color: white;
 }
-
+h1 {
+  font-family:'Roboto',sans-serif;
+  font-size: 500%;
+}
 .content {
+  font-family:'Roboto',sans-serif;
+  font-size: 150%;
+  font-weight: 300;
   height: 40%;
   width: 30%;
   display: flexbox;
@@ -16,6 +22,28 @@ html {
   width: 30%;
 }
 
+.buttons {
+  border-color: black;
+  background-color: black;
+  display:inline-block;
+  padding:0.35em 1.2em;
+  border:0.1em solid #FFFFFF;
+  margin:0 0.3em 0.3em 0;
+  border-radius:0.12em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family:'Roboto',sans-serif;
+  font-weight:300;
+  color:#FFFFFF;
+  text-align:center;
+  transition: all 0.2s;
+}
+
+.buttons:hover {
+  border-color: black;
+  color:#000000;
+  background-color:#FFFFFF;
+}
 #checkShort {
   width: 30%;
 }
