@@ -41,13 +41,14 @@ app.post('/submit/', (req, res) => {
 
 app.get('/check/', (req, res) => {
     console.log("Checking shortened url.");
-    const url_ = req.query.url_.substring(req.query.url_.lastIndexOf("/"), req.query.url_.length);
+    const url_ = req.query.url_.substring(req.query.url_.lastIndexOf("/") + 1, req.query.url_.length);
     console.log(`Searching for url with hash ${url_}`);
     db.Url.findOne({ where: { shortUrl: url_ } }).then(longURL => {
         if (!longURL) {
             console.log("Error in finding long url.");
             return res.status(404).json({ err: "Url does not exist." });
-        } else if (longURL) {
+        } 
+        else if (longURL) {
             var query_val = longURL.toJSON().url;
             console.log(`Found long url ${query_val} for short url ${url_}`);
             res.send(query_val);

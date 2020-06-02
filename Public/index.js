@@ -34,7 +34,8 @@ function urlExists(url_) {
     var request = false;
     if (window.XMLHttpRequest) {
         request = new XMLHttpRequest;
-    } else if (window.ActiveXObject) {
+    } 
+    else if (window.ActiveXObject) {
         request = new ActiveXObject("Microsoft.XMLHttp");
     }
     if (request) {
